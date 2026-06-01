@@ -1,0 +1,2156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chronos X — Time Reinvented</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Syne:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ============================================================
+       CHRONOS X — PREMIUM SMARTWATCH LANDING PAGE
+       Dark Luxury · Cyberpunk · Ultra-Modern
+    ============================================================ */
+
+    /* ── 1. CSS CUSTOM PROPERTIES (Design Tokens) ─────────────── */
+    :root {
+      --bg-void:        #0a0a0a;
+      --bg-deep:        #0d0d0d;
+      --bg-surface:     #111111;
+      --bg-card:        #141414;
+      --bg-card-hover:  #181818;
+
+      --accent-purple:  #8a2be2;
+      --accent-cyan:    #00f5ff;
+      --accent-pink:    #ff00aa;
+      --accent-gold:    #ffd700;
+
+      --glow-purple: 0 0 20px rgba(138, 43, 226, 0.6), 0 0 60px rgba(138, 43, 226, 0.3);
+      --glow-cyan:   0 0 20px rgba(0, 245, 255, 0.6), 0 0 60px rgba(0, 245, 255, 0.3);
+      --glow-pink:   0 0 20px rgba(255, 0, 170, 0.5), 0 0 50px rgba(255, 0, 170, 0.2);
+
+      --text-primary:   #f0f0f0;
+      --text-secondary: #a0a0a0;
+      --text-muted:     #555555;
+
+      --font-display: 'Orbitron', monospace;
+      --font-body:    'Syne', sans-serif;
+
+      --border-subtle: rgba(255, 255, 255, 0.06);
+      --border-glow:   rgba(0, 245, 255, 0.25);
+
+      --radius-card: 20px;
+      --radius-pill: 50px;
+
+      --transition-fast:   0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-slow:   0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ── 2. RESET & BASE ──────────────────────────────────────── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg-void);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── 3. GLOBAL KEYFRAME ANIMATIONS ───────────────────────── */
+
+    /* Hero watch floating levitation */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(-2deg); }
+      50%       { transform: translateY(-28px) rotate(2deg); }
+    }
+
+    /* Ambient ring rotation */
+    @keyframes spin-slow {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    @keyframes spin-reverse {
+      from { transform: rotate(360deg); }
+      to   { transform: rotate(0deg); }
+    }
+
+    /* Fade & slide up on load */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* CTA button continuous pulse glow */
+    @keyframes pulse-glow {
+      0%, 100% {
+        box-shadow: 0 0 20px rgba(0, 245, 255, 0.4),
+                    0 0 50px rgba(0, 245, 255, 0.2),
+                    inset 0 0 20px rgba(0, 245, 255, 0.05);
+      }
+      50% {
+        box-shadow: 0 0 35px rgba(0, 245, 255, 0.7),
+                    0 0 80px rgba(0, 245, 255, 0.4),
+                    0 0 120px rgba(138, 43, 226, 0.3),
+                    inset 0 0 30px rgba(0, 245, 255, 0.1);
+      }
+    }
+
+    /* Neon text shimmer */
+    @keyframes text-shimmer {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.7; }
+    }
+
+    /* Scanning line on watch */
+    @keyframes scan-line {
+      0%   { top: 10%; opacity: 0.8; }
+      100% { top: 90%; opacity: 0; }
+    }
+
+    /* Watch UI SVG animations */
+    @keyframes arc-spin {
+      from { stroke-dashoffset: 0; }
+      to   { stroke-dashoffset: -502; }
+    }
+
+    @keyframes radar-sweep {
+      from { transform: rotate(0deg); transform-origin: 50% 50%; }
+      to   { transform: rotate(360deg); transform-origin: 50% 50%; }
+    }
+
+    @keyframes bpm-pulse {
+      0%, 100% { opacity: 0.5; transform: scaleY(1); }
+      50%       { opacity: 1;   transform: scaleY(1.4); }
+    }
+
+    @keyframes dash-march {
+      from { stroke-dashoffset: 20; }
+      to   { stroke-dashoffset: 0; }
+    }
+
+    @keyframes dot-blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.2; }
+    }
+
+    @keyframes tick-rotate {
+      from { transform: rotate(0deg); transform-origin: 50% 50%; }
+      to   { transform: rotate(360deg); transform-origin: 50% 50%; }
+    }
+
+    @keyframes minute-rotate {
+      from { transform: rotate(120deg); transform-origin: 50% 50%; }
+      to   { transform: rotate(480deg); transform-origin: 50% 50%; }
+    }
+
+    @keyframes hour-rotate {
+      from { transform: rotate(230deg); transform-origin: 50% 50%; }
+      to   { transform: rotate(590deg); transform-origin: 50% 50%; }
+    }
+
+    /* SVG animation classes used inside the watch face */
+    .wf-arc-outer {
+      animation: arc-spin 8s linear infinite;
+      transform-origin: 100px 100px;
+    }
+    .wf-radar-line {
+      animation: radar-sweep 3s linear infinite;
+      transform-origin: 100px 100px;
+    }
+    .wf-dash-march {
+      animation: dash-march 1s linear infinite;
+    }
+    .wf-bpm-bar {
+      animation: bpm-pulse 1.2s ease-in-out infinite;
+      transform-origin: bottom;
+    }
+    .wf-bpm-bar:nth-child(2) { animation-delay: 0.1s; }
+    .wf-bpm-bar:nth-child(3) { animation-delay: 0.2s; }
+    .wf-bpm-bar:nth-child(4) { animation-delay: 0.35s; }
+    .wf-bpm-bar:nth-child(5) { animation-delay: 0.15s; }
+    .wf-bpm-bar:nth-child(6) { animation-delay: 0.25s; }
+    .wf-bpm-bar:nth-child(7) { animation-delay: 0.4s; }
+    .wf-dot-blink { animation: dot-blink 1.4s ease-in-out infinite; }
+    .wf-hand-second { animation: tick-rotate 60s steps(60, end) infinite; transform-origin: 100px 100px; }
+    .wf-hand-minute  { animation: minute-rotate 3600s linear infinite; transform-origin: 100px 100px; }
+    .wf-hand-hour    { animation: hour-rotate 43200s linear infinite; transform-origin: 100px 100px; }
+
+    /* Data particles drift */
+    @keyframes particle-drift {
+      0%   { transform: translateY(0) translateX(0) scale(1); opacity: 0.8; }
+      50%  { transform: translateY(-30px) translateX(15px) scale(1.2); opacity: 0.4; }
+      100% { transform: translateY(-60px) translateX(-10px) scale(0.6); opacity: 0; }
+    }
+
+    /* Rotating watch ring */
+    @keyframes ring-breathe {
+      0%, 100% { transform: scale(1); opacity: 0.4; }
+      50%       { transform: scale(1.05); opacity: 0.8; }
+    }
+
+    /* Spec bar fill animation */
+    @keyframes bar-fill {
+      from { width: 0%; }
+      to   { width: var(--bar-width); }
+    }
+
+    /* Grid line reveal */
+    @keyframes grid-reveal {
+      from { opacity: 0; transform: scaleX(0); }
+      to   { opacity: 1; transform: scaleX(1); }
+    }
+
+    /* Badge entrance */
+    @keyframes badge-pop {
+      0%   { transform: scale(0) rotate(-10deg); opacity: 0; }
+      70%  { transform: scale(1.1) rotate(3deg); opacity: 1; }
+      100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+
+    /* ── 4. NOISE TEXTURE OVERLAY ─────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+    }
+
+    /* ── 5. NAVIGATION ────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 4rem;
+      background: rgba(10, 10, 10, 0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-subtle);
+      animation: fadeInUp 0.6s ease both;
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 900;
+      letter-spacing: 0.15em;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    .nav-logo span {
+      color: var(--accent-cyan);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color var(--transition-fast);
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent-cyan);
+      transition: width var(--transition-smooth);
+      box-shadow: var(--glow-cyan);
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-cyan);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--bg-void);
+      background: var(--accent-cyan);
+      border: none;
+      padding: 0.6rem 1.6rem;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .nav-cta:hover {
+      transform: scale(1.05);
+      box-shadow: var(--glow-cyan);
+    }
+
+    /* ── 6. HERO SECTION ──────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 4rem 4rem;
+      gap: 3rem;
+      overflow: hidden;
+    }
+
+    /* Deep space background gradient */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 60% at 70% 50%, rgba(138, 43, 226, 0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 50% at 30% 70%, rgba(0, 245, 255, 0.07) 0%, transparent 60%),
+        radial-gradient(ellipse 80% 80% at 50% 0%, rgba(20, 20, 30, 0.8) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* Geometric grid lines */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 70%);
+    }
+
+    /* ── Hero Left: Copy ──────────────────────────────────────── */
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(0, 245, 255, 0.08);
+      border: 1px solid rgba(0, 245, 255, 0.2);
+      border-radius: var(--radius-pill);
+      padding: 0.35rem 1rem;
+      margin-bottom: 2rem;
+      animation: badge-pop 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
+    }
+
+    .hero-badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+
+    .hero-badge span {
+      font-family: var(--font-display);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent-cyan);
+    }
+
+    .hero-headline {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 5.5vw, 5.5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      animation: fadeInUp 0.8s ease 0.3s both;
+    }
+
+    .hero-headline .line-1 {
+      display: block;
+      color: var(--text-primary);
+    }
+
+    .hero-headline .line-2 {
+      display: block;
+      background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-purple) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: text-shimmer 4s ease-in-out infinite;
+    }
+
+    .hero-subtitle {
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: var(--text-secondary);
+      max-width: 480px;
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+      animation: fadeInUp 0.8s ease 0.45s both;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      animation: fadeInUp 0.8s ease 0.6s both;
+    }
+
+    /* Primary CTA — Pulse Glow */
+    .btn-primary {
+      position: relative;
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--bg-void);
+      background: linear-gradient(135deg, var(--accent-cyan), #0099cc);
+      border: none;
+      padding: 1rem 2.5rem;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+      animation: pulse-glow 3s ease-in-out infinite;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: var(--radius-pill);
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      z-index: -1;
+      opacity: 0;
+      transition: opacity var(--transition-smooth);
+    }
+
+    .btn-primary:hover {
+      transform: scale(1.06) translateY(-2px);
+      box-shadow: 0 0 40px rgba(0, 245, 255, 0.8), 0 0 100px rgba(0, 245, 255, 0.4);
+      animation: none;
+    }
+
+    .btn-primary:hover::before {
+      opacity: 1;
+    }
+
+    .btn-primary-icon {
+      font-size: 1rem;
+      transition: transform var(--transition-fast);
+    }
+
+    .btn-primary:hover .btn-primary-icon {
+      transform: translateX(4px);
+    }
+
+    /* Secondary ghost button */
+    .btn-ghost {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--text-secondary);
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      padding: 1rem 2rem;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all var(--transition-smooth);
+    }
+
+    .btn-ghost:hover {
+      color: var(--accent-cyan);
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 20px rgba(0, 245, 255, 0.15);
+      transform: scale(1.03);
+    }
+
+    /* Hero stats strip */
+    .hero-stats {
+      display: flex;
+      gap: 2.5rem;
+      margin-top: 3.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-subtle);
+      animation: fadeInUp 0.8s ease 0.75s both;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .stat-value {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--text-primary);
+      line-height: 1;
+    }
+
+    .stat-value em {
+      color: var(--accent-cyan);
+      font-style: normal;
+    }
+
+    .stat-label {
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* ── Hero Right: Watch Visual ─────────────────────────────── */
+    .hero-visual {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 600px;
+      animation: fadeInUp 0.9s ease 0.2s both;
+    }
+
+    /* Outer ambient glow ring */
+    .watch-ring-outer {
+      position: absolute;
+      width: 480px;
+      height: 480px;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 245, 255, 0.08);
+      animation: spin-slow 30s linear infinite, ring-breathe 6s ease-in-out infinite;
+    }
+
+    .watch-ring-outer::before {
+      content: '';
+      position: absolute;
+      top: -3px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      box-shadow: var(--glow-cyan);
+    }
+
+    /* Inner tech ring */
+    .watch-ring-inner {
+      position: absolute;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      border: 1px dashed rgba(138, 43, 226, 0.15);
+      animation: spin-reverse 20s linear infinite;
+    }
+
+    .watch-ring-inner::before,
+    .watch-ring-inner::after {
+      content: '';
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent-purple);
+      box-shadow: var(--glow-purple);
+    }
+
+    .watch-ring-inner::before {
+      top: -2.5px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .watch-ring-inner::after {
+      bottom: -2.5px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* Watch body container */
+    .watch-body {
+      position: relative;
+      width: 240px;
+      height: 290px;
+      animation: float 5s ease-in-out infinite;
+      z-index: 2;
+    }
+
+    /* Watch frame */
+    .watch-frame {
+      width: 100%;
+      height: 100%;
+      border-radius: 55px;
+      background: linear-gradient(145deg, #1a1a2e 0%, #0d0d1a 40%, #16002e 100%);
+      border: 2px solid rgba(138, 43, 226, 0.3);
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.05),
+        0 0 40px rgba(138, 43, 226, 0.35),
+        0 0 100px rgba(0, 245, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        inset 0 0 30px rgba(138, 43, 226, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Screen area */
+    .watch-screen {
+      position: absolute;
+      inset: 10px;
+      border-radius: 46px;
+      background: linear-gradient(160deg, #030318 0%, #06001a 100%);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: stretch;
+    }
+
+    /* Scanning line effect */
+    .scan-line {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+      opacity: 0;
+      animation: scan-line 3s ease-in-out 1.5s infinite;
+    }
+
+    /* Watch crown buttons */
+    .watch-crown {
+      position: absolute;
+      right: -10px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .crown-btn {
+      width: 10px;
+      height: 30px;
+      border-radius: 4px;
+      background: linear-gradient(180deg, #2a2a3e, #1a1a2e);
+      border: 1px solid rgba(138, 43, 226, 0.2);
+    }
+
+    .crown-btn:first-child {
+      height: 50px;
+    }
+
+    /* Strap top/bottom */
+    .watch-strap-top,
+    .watch-strap-bottom {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 180px;
+      height: 70px;
+      background: linear-gradient(180deg, #1a1a28, #0f0f1a);
+      border: 1px solid rgba(138, 43, 226, 0.15);
+    }
+
+    .watch-strap-top {
+      top: -62px;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .watch-strap-bottom {
+      bottom: -62px;
+      border-radius: 0 0 10px 10px;
+    }
+
+    /* Strap texture lines */
+    .watch-strap-top::after,
+    .watch-strap-bottom::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: rgba(0, 245, 255, 0.04);
+    }
+
+    /* Floating data particles */
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      box-shadow: var(--glow-cyan);
+      animation: particle-drift 4s ease-out infinite;
+    }
+
+    .particle:nth-child(1) { left: 15%; top: 30%; animation-delay: 0s;   animation-duration: 4.5s; }
+    .particle:nth-child(2) { left: 80%; top: 50%; animation-delay: 1s;   animation-duration: 3.8s; background: var(--accent-purple); box-shadow: var(--glow-purple); }
+    .particle:nth-child(3) { left: 25%; top: 70%; animation-delay: 2s;   animation-duration: 5s; }
+    .particle:nth-child(4) { left: 70%; top: 20%; animation-delay: 0.5s; animation-duration: 4.2s; background: var(--accent-pink); }
+    .particle:nth-child(5) { left: 50%; top: 80%; animation-delay: 1.8s; animation-duration: 3.5s; }
+
+    /* Floating data labels */
+    .data-label {
+      position: absolute;
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(0, 245, 255, 0.2);
+      border-radius: 8px;
+      padding: 0.4rem 0.75rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .data-label-title {
+      font-family: var(--font-display);
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .data-label-value {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+    }
+
+    .data-label:nth-child(1) {
+      top: 18%;
+      left: -5%;
+      animation: float 6s ease-in-out 1s infinite;
+    }
+
+    .data-label:nth-child(2) {
+      bottom: 22%;
+      right: -2%;
+      animation: float 5.5s ease-in-out 2s infinite;
+    }
+
+    .data-label:nth-child(3) {
+      top: 55%;
+      left: -8%;
+      animation: float 7s ease-in-out 0.5s infinite;
+    }
+
+    /* ── 7. SECTION COMMON STYLES ─────────────────────────────── */
+    section {
+      position: relative;
+      padding: 6rem 4rem;
+    }
+
+    .section-label {
+      font-family: var(--font-display);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent-cyan);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--accent-cyan);
+      box-shadow: var(--glow-cyan);
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+    }
+
+    .section-title em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-desc {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--text-secondary);
+      max-width: 520px;
+      line-height: 1.8;
+      margin-bottom: 3.5rem;
+    }
+
+    .section-header {
+      max-width: 640px;
+    }
+
+    /* ── 8. FEATURES SECTION ──────────────────────────────────── */
+    .features {
+      background: var(--bg-deep);
+    }
+
+    .features-inner {
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .feature-card {
+      position: relative;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-card);
+      padding: 2rem;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform var(--transition-smooth), box-shadow var(--transition-smooth), border-color var(--transition-smooth), background var(--transition-smooth);
+    }
+
+    /* Card ambient glow (hidden by default) */
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: var(--radius-card);
+      opacity: 0;
+      transition: opacity var(--transition-smooth);
+    }
+
+    .feature-card:nth-child(1)::before { background: radial-gradient(ellipse at top left, rgba(0, 245, 255, 0.1), transparent 60%); }
+    .feature-card:nth-child(2)::before { background: radial-gradient(ellipse at top left, rgba(138, 43, 226, 0.1), transparent 60%); }
+    .feature-card:nth-child(3)::before { background: radial-gradient(ellipse at top left, rgba(255, 0, 170, 0.08), transparent 60%); }
+    .feature-card:nth-child(4)::before { background: radial-gradient(ellipse at top left, rgba(255, 215, 0, 0.08), transparent 60%); }
+
+    .feature-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      opacity: 0;
+      transition: opacity var(--transition-smooth);
+    }
+
+    .feature-card:nth-child(1)::after { background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent); }
+    .feature-card:nth-child(2)::after { background: linear-gradient(90deg, transparent, var(--accent-purple), transparent); }
+    .feature-card:nth-child(3)::after { background: linear-gradient(90deg, transparent, var(--accent-pink), transparent); }
+    .feature-card:nth-child(4)::after { background: linear-gradient(90deg, transparent, var(--accent-gold), transparent); }
+
+    /* Hover magic */
+    .feature-card:hover {
+      transform: scale(1.04) translateY(-6px);
+      background: var(--bg-card-hover);
+    }
+
+    .feature-card:nth-child(1):hover {
+      border-color: rgba(0, 245, 255, 0.3);
+      box-shadow: 0 20px 60px rgba(0, 245, 255, 0.12), 0 0 0 1px rgba(0, 245, 255, 0.1);
+    }
+
+    .feature-card:nth-child(2):hover {
+      border-color: rgba(138, 43, 226, 0.3);
+      box-shadow: 0 20px 60px rgba(138, 43, 226, 0.15), 0 0 0 1px rgba(138, 43, 226, 0.1);
+    }
+
+    .feature-card:nth-child(3):hover {
+      border-color: rgba(255, 0, 170, 0.25);
+      box-shadow: 0 20px 60px rgba(255, 0, 170, 0.1), 0 0 0 1px rgba(255, 0, 170, 0.1);
+    }
+
+    .feature-card:nth-child(4):hover {
+      border-color: rgba(255, 215, 0, 0.25);
+      box-shadow: 0 20px 60px rgba(255, 215, 0, 0.08), 0 0 0 1px rgba(255, 215, 0, 0.1);
+    }
+
+    .feature-card:hover::before,
+    .feature-card:hover::after {
+      opacity: 1;
+    }
+
+    .feature-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      transition: transform var(--transition-smooth);
+    }
+
+    .feature-card:hover .feature-icon {
+      transform: scale(1.1) rotate(-5deg);
+    }
+
+    .feature-card:nth-child(1) .feature-icon { background: rgba(0, 245, 255, 0.1); box-shadow: 0 0 20px rgba(0, 245, 255, 0.1); }
+    .feature-card:nth-child(2) .feature-icon { background: rgba(138, 43, 226, 0.1); box-shadow: 0 0 20px rgba(138, 43, 226, 0.1); }
+    .feature-card:nth-child(3) .feature-icon { background: rgba(255, 0, 170, 0.1); box-shadow: 0 0 20px rgba(255, 0, 170, 0.1); }
+    .feature-card:nth-child(4) .feature-icon { background: rgba(255, 215, 0, 0.08); box-shadow: 0 0 20px rgba(255, 215, 0, 0.08); }
+
+    .feature-title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      color: var(--text-primary);
+      margin-bottom: 0.75rem;
+    }
+
+    .feature-desc {
+      font-size: 0.88rem;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .feature-stat {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.75rem;
+      border-radius: var(--radius-pill);
+      display: inline-block;
+    }
+
+    .feature-card:nth-child(1) .feature-stat { color: var(--accent-cyan);   background: rgba(0, 245, 255, 0.08);   border: 1px solid rgba(0, 245, 255, 0.15); }
+    .feature-card:nth-child(2) .feature-stat { color: var(--accent-purple); background: rgba(138, 43, 226, 0.08); border: 1px solid rgba(138, 43, 226, 0.15); }
+    .feature-card:nth-child(3) .feature-stat { color: var(--accent-pink);   background: rgba(255, 0, 170, 0.08);  border: 1px solid rgba(255, 0, 170, 0.12); }
+    .feature-card:nth-child(4) .feature-stat { color: var(--accent-gold);   background: rgba(255, 215, 0, 0.06);  border: 1px solid rgba(255, 215, 0, 0.12); }
+
+    /* ── 9. TECH SPECS SECTION ────────────────────────────────── */
+    .specs {
+      background: var(--bg-void);
+    }
+
+    .specs-inner {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    /* Left column — watch visual repeat */
+    .specs-visual {
+      position: sticky;
+      top: 120px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .specs-watch-wrap {
+      position: relative;
+      width: 200px;
+      height: 240px;
+    }
+
+    .specs-watch-glow {
+      position: absolute;
+      inset: -40px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(138, 43, 226, 0.2) 0%, transparent 70%);
+      animation: ring-breathe 4s ease-in-out infinite;
+    }
+
+    .specs-watch-frame {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 46px;
+      background: linear-gradient(145deg, #1a1a2e 0%, #0d0d1a 50%, #16002e 100%);
+      border: 2px solid rgba(138, 43, 226, 0.25);
+      box-shadow:
+        0 0 30px rgba(138, 43, 226, 0.25),
+        0 0 80px rgba(0, 245, 255, 0.08),
+        inset 0 0 20px rgba(138, 43, 226, 0.08);
+      animation: float 6s ease-in-out 1s infinite;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .specs-label {
+      font-family: var(--font-display);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    /* Right column — spec rows */
+    .specs-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .spec-row {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 2rem;
+      align-items: center;
+      padding: 1.6rem 0;
+      border-bottom: 1px solid var(--border-subtle);
+      position: relative;
+      transition: background var(--transition-fast);
+      cursor: default;
+    }
+
+    .spec-row::before {
+      content: '';
+      position: absolute;
+      left: -4rem;
+      right: -4rem;
+      top: 0;
+      bottom: 0;
+      background: rgba(0, 245, 255, 0.02);
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+    }
+
+    .spec-row:hover::before {
+      opacity: 1;
+    }
+
+    .spec-row:hover .spec-key {
+      color: var(--accent-cyan);
+    }
+
+    .spec-key {
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      transition: color var(--transition-fast);
+    }
+
+    .spec-value-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .spec-value {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .spec-bar-track {
+      height: 3px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .spec-bar-fill {
+      height: 100%;
+      border-radius: 2px;
+      background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
+      box-shadow: 0 0 8px rgba(0, 245, 255, 0.4);
+      width: var(--bar-width);
+      animation: bar-fill 1.5s cubic-bezier(0.4, 0, 0.2, 1) 0.5s both;
+    }
+
+    /* ── 10. FOOTER / CTA BANNER ──────────────────────────────── */
+    .footer-cta {
+      position: relative;
+      padding: 6rem 4rem;
+      background: var(--bg-surface);
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .footer-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 80% at 50% 50%, rgba(138, 43, 226, 0.1) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 50% 50%, rgba(0, 245, 255, 0.05) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .footer-cta-inner {
+      position: relative;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .footer-cta .section-label {
+      justify-content: center;
+    }
+
+    .footer-cta .section-label::before {
+      display: none;
+    }
+
+    .footer-cta .section-title {
+      margin-bottom: 1.25rem;
+      text-align: center;
+    }
+
+    .footer-cta .section-desc {
+      text-align: center;
+      margin: 0 auto 2.5rem;
+    }
+
+    .footer-cta-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    /* Price tag */
+    .price-tag {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--text-primary);
+      letter-spacing: 0.05em;
+    }
+
+    .price-tag span {
+      color: var(--accent-cyan);
+    }
+
+    /* ── 11. BOTTOM NAV BAR ───────────────────────────────────── */
+    footer {
+      background: var(--bg-void);
+      border-top: 1px solid var(--border-subtle);
+      padding: 2rem 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-brand {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      font-weight: 900;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+    }
+
+    .footer-brand span { color: var(--accent-cyan); }
+
+    .footer-copy {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color var(--transition-fast);
+    }
+
+    .footer-links a:hover { color: var(--accent-cyan); }
+
+    /* ── 12. RESPONSIVE ───────────────────────────────────────── */
+    @media (max-width: 1100px) {
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .specs-inner {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .specs-visual {
+        position: relative;
+        top: auto;
+        flex-direction: row;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 900px) {
+      nav {
+        padding: 1rem 2rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 7rem 2rem 4rem;
+        text-align: center;
+      }
+
+      .hero-content { order: 2; }
+      .hero-visual  { order: 1; height: 420px; }
+
+      .hero-subtitle { margin: 0 auto 2.5rem; }
+      .hero-actions  { justify-content: center; }
+      .hero-stats    { justify-content: center; }
+
+      .watch-ring-outer { width: 320px; height: 320px; }
+      .watch-ring-inner { width: 260px; height: 260px; }
+      .watch-body { width: 180px; height: 220px; }
+
+      .data-label { display: none; }
+
+      section { padding: 4rem 2rem; }
+    }
+
+    @media (max-width: 600px) {
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .spec-row {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1.5rem 2rem;
+        text-align: center;
+      }
+
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════
+       NAVIGATION
+  ═══════════════════════════════════════════════ -->
+  <nav role="navigation" aria-label="Main navigation">
+    <a href="#" class="nav-logo">CHRONOS<span>X</span></a>
+
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#specs">Specs</a></li>
+      <li><a href="#order">Order</a></li>
+    </ul>
+
+    <a href="#order" class="nav-cta">Pre-Order</a>
+  </nav>
+
+
+  <!-- ═══════════════════════════════════════════════
+       HERO SECTION
+  ═══════════════════════════════════════════════ -->
+  <section class="hero" aria-labelledby="hero-headline">
+
+    <!-- Left: Copy -->
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        <span>Gen 4 · Now Available</span>
+      </div>
+
+      <h1 class="hero-headline" id="hero-headline">
+        <span class="line-1">Time</span>
+        <span class="line-2">Reinvented.</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        Chronos X isn't just a watch — it's a precision-engineered wearable supercomputer
+        wrapped in aerospace-grade titanium. The future, strapped to your wrist.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#order" class="btn-primary">
+          Claim Yours
+          <span class="btn-primary-icon" aria-hidden="true">→</span>
+        </a>
+        <a href="#features" class="btn-ghost">
+          Explore Features
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-value"><em>10</em>d</span>
+          <span class="stat-label">Battery Life</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value"><em>1</em>ms</span>
+          <span class="stat-label">Response Time</span>
+        </span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value"><em>50</em>m</span>
+          <span class="stat-label">Water Depth</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Watch Visual -->
+    <div class="hero-visual" aria-label="Chronos X smartwatch visual" role="img">
+
+      <!-- Ambient rings -->
+      <div class="watch-ring-outer" aria-hidden="true"></div>
+      <div class="watch-ring-inner" aria-hidden="true"></div>
+
+      <!-- Particles -->
+      <div class="particle" aria-hidden="true"></div>
+      <div class="particle" aria-hidden="true"></div>
+      <div class="particle" aria-hidden="true"></div>
+      <div class="particle" aria-hidden="true"></div>
+      <div class="particle" aria-hidden="true"></div>
+
+      <!-- Floating data bubbles -->
+      <div class="data-label" aria-hidden="true">
+        <div class="data-label-title">Heart Rate</div>
+        <div class="data-label-value">72 BPM</div>
+      </div>
+      <div class="data-label" aria-hidden="true">
+        <div class="data-label-title">SpO₂</div>
+        <div class="data-label-value">98%</div>
+      </div>
+      <div class="data-label" aria-hidden="true">
+        <div class="data-label-title">Battery</div>
+        <div class="data-label-value">87%</div>
+      </div>
+
+      <!-- Watch body -->
+      <div class="watch-body" aria-hidden="true">
+        <!-- Straps -->
+        <div class="watch-strap-top"></div>
+        <div class="watch-strap-bottom"></div>
+
+        <!-- Main frame -->
+        <div class="watch-frame">
+          <div class="watch-crown">
+            <div class="crown-btn"></div>
+            <div class="crown-btn"></div>
+          </div>
+
+          <div class="watch-screen">
+            <div class="scan-line"></div>
+
+            <!-- ═══ FUTURISTIC WATCH FACE SVG ═══ -->
+            <svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg"
+                 style="width:100%;height:100%;display:block;overflow:visible;"
+                 aria-hidden="true">
+              <defs>
+                <!-- Cyan glow filter -->
+                <filter id="glow-c" x="-40%" y="-40%" width="180%" height="180%">
+                  <feGaussianBlur stdDeviation="2.5" result="blur"/>
+                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+                <!-- Purple glow filter -->
+                <filter id="glow-p" x="-40%" y="-40%" width="180%" height="180%">
+                  <feGaussianBlur stdDeviation="2" result="blur"/>
+                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+                <!-- Strong glow for hands -->
+                <filter id="glow-strong" x="-80%" y="-80%" width="260%" height="260%">
+                  <feGaussianBlur stdDeviation="3.5" result="blur"/>
+                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+                <!-- Radar gradient -->
+                <radialGradient id="radar-grad" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#00f5ff" stop-opacity="0.18"/>
+                  <stop offset="100%" stop-color="#00f5ff" stop-opacity="0"/>
+                </radialGradient>
+                <!-- Radar sweep gradient -->
+                <linearGradient id="sweep-grad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#00f5ff" stop-opacity="0.5"/>
+                  <stop offset="100%" stop-color="#00f5ff" stop-opacity="0"/>
+                </linearGradient>
+                <!-- Arc gradients -->
+                <linearGradient id="arc-grad-1" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#00f5ff"/>
+                  <stop offset="100%" stop-color="#8a2be2"/>
+                </linearGradient>
+                <linearGradient id="arc-grad-2" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#8a2be2"/>
+                  <stop offset="100%" stop-color="#ff00aa"/>
+                </linearGradient>
+                <linearGradient id="arc-grad-3" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#ffd700"/>
+                  <stop offset="100%" stop-color="#ff8c00"/>
+                </linearGradient>
+              </defs>
+
+              <!-- ── BG: subtle radial grid ── -->
+              <circle cx="100" cy="105" r="92" fill="none" stroke="rgba(0,245,255,0.04)" stroke-width="0.5"/>
+              <circle cx="100" cy="105" r="72" fill="none" stroke="rgba(0,245,255,0.04)" stroke-width="0.5"/>
+              <circle cx="100" cy="105" r="52" fill="none" stroke="rgba(138,43,226,0.05)" stroke-width="0.5"/>
+
+              <!-- Cross hairs -->
+              <line x1="100" y1="13" x2="100" y2="197" stroke="rgba(0,245,255,0.04)" stroke-width="0.5"/>
+              <line x1="8"   y1="105" x2="192" y2="105" stroke="rgba(0,245,255,0.04)" stroke-width="0.5"/>
+
+              <!-- ── TICK MARKS (hour positions) ── -->
+              <g stroke="rgba(0,245,255,0.35)" stroke-width="1.2" filter="url(#glow-c)">
+                <!-- 12 evenly spaced ticks at r=88 -->
+                <line x1="100" y1="17" x2="100" y2="25"/>
+                <line x1="144" y1="28.5" x2="140" y2="35.4" transform="rotate(30,100,105)"/>
+                <line x1="100" y1="17" x2="100" y2="25" transform="rotate(60,100,105)"/>
+                <line x1="100" y1="17" x2="100" y2="25" transform="rotate(90,100,105)"/>
+                <line x1="100" y1="17" x2="100" y2="25" transform="rotate(120,100,105)"/>
+                <line x1="100" y1="17" x2="100" y2="25" transform="rotate(150,100,105)"/>
+                <line x1="100" y1="17" x2="100" y2="25" transform="rotate(180,100,105)"/>
+                <line x1="100" y1="17" x2="100" y2="25" transform="rotate(210,100,105)"/>
+                <line x1="100" y1="17" x2="100" y2="25" transform="rotate(240,100,105)"/>
+                <line x1="100" y1="17" x2="100" y2="25" transform="rotate(270,100,105)"/>
+                <line x1="100" y1="17" x2="100" y2="25" transform="rotate(300,100,105)"/>
+                <line x1="100" y1="17" x2="100" y2="25" transform="rotate(330,100,105)"/>
+              </g>
+              <!-- Minor ticks -->
+              <g stroke="rgba(0,245,255,0.12)" stroke-width="0.6">
+                <line x1="100" y1="17" x2="100" y2="21" transform="rotate(6,100,105)"/>
+                <line x1="100" y1="17" x2="100" y2="21" transform="rotate(12,100,105)"/>
+                <line x1="100" y1="17" x2="100" y2="21" transform="rotate(18,100,105)"/>
+                <line x1="100" y1="17" x2="100" y2="21" transform="rotate(24,100,105)"/>
+                <line x1="100" y1="17" x2="100" y2="21" transform="rotate(36,100,105)"/>
+                <line x1="100" y1="17" x2="100" y2="21" transform="rotate(42,100,105)"/>
+                <line x1="100" y1="17" x2="100" y2="21" transform="rotate(48,100,105)"/>
+                <line x1="100" y1="17" x2="100" y2="21" transform="rotate(54,100,105)"/>
+              </g>
+
+              <!-- ── OUTER FITNESS ARCS (r=82, stroke=6) ── -->
+              <!-- Arc track backgrounds -->
+              <circle cx="100" cy="105" r="82" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="5.5" stroke-dasharray="515" stroke-linecap="round"/>
+              <circle cx="100" cy="105" r="73" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="4.5" stroke-dasharray="459" stroke-linecap="round"/>
+              <circle cx="100" cy="105" r="64" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="4" stroke-dasharray="402" stroke-linecap="round"/>
+
+              <!-- Arc 1: Activity (cyan-purple) – 78% -->
+              <circle class="wf-arc-outer" cx="100" cy="105" r="82"
+                fill="none" stroke="url(#arc-grad-1)" stroke-width="5.5"
+                stroke-dasharray="401 114" stroke-linecap="round"
+                stroke-dashoffset="129" filter="url(#glow-c)"
+                style="transform-origin:100px 105px;"/>
+
+              <!-- Arc 2: Stand (purple-pink) – 60% -->
+              <circle cx="100" cy="105" r="73"
+                fill="none" stroke="url(#arc-grad-2)" stroke-width="4.5"
+                stroke-dasharray="275 184" stroke-linecap="round"
+                stroke-dashoffset="115" filter="url(#glow-p)"/>
+
+              <!-- Arc 3: Exercise (gold) – 85% -->
+              <circle cx="100" cy="105" r="64"
+                fill="none" stroke="url(#arc-grad-3)" stroke-width="4"
+                stroke-dasharray="341 61" stroke-linecap="round"
+                stroke-dashoffset="101" filter="url(#glow-c)"/>
+
+              <!-- ── RADAR ZONE (inner circle) ── -->
+              <circle cx="100" cy="105" r="50" fill="url(#radar-grad)" stroke="rgba(0,245,255,0.08)" stroke-width="0.5"/>
+              <!-- Radar grid rings -->
+              <circle cx="100" cy="105" r="33" fill="none" stroke="rgba(0,245,255,0.07)" stroke-width="0.5" stroke-dasharray="3 4"/>
+              <circle cx="100" cy="105" r="17" fill="none" stroke="rgba(0,245,255,0.07)" stroke-width="0.5" stroke-dasharray="3 4"/>
+              <!-- Radar sweep sector -->
+              <g class="wf-radar-line">
+                <path d="M100,105 L100,55 A50,50 0 0,1 148,129 Z" fill="url(#sweep-grad)" opacity="0.35"/>
+                <line x1="100" y1="105" x2="100" y2="55" stroke="#00f5ff" stroke-width="0.8" opacity="0.7" filter="url(#glow-c)"/>
+              </g>
+              <!-- Radar blips -->
+              <circle cx="115" cy="82" r="2.5" fill="#00f5ff" opacity="0.9" filter="url(#glow-c)">
+                <animate attributeName="opacity" values="0.9;0.2;0.9" dur="2.1s" repeatCount="indefinite"/>
+              </circle>
+              <circle cx="87" cy="120" r="1.8" fill="#8a2be2" opacity="0.8" filter="url(#glow-p)">
+                <animate attributeName="opacity" values="0.8;0.1;0.8" dur="1.7s" repeatCount="indefinite"/>
+              </circle>
+              <circle cx="118" cy="115" r="1.5" fill="#00f5ff" opacity="0.6" filter="url(#glow-c)">
+                <animate attributeName="opacity" values="0.6;0.05;0.6" dur="2.9s" repeatCount="indefinite"/>
+              </circle>
+
+              <!-- ── CLOCK HANDS ── -->
+              <!-- Hour hand -->
+              <line class="wf-hand-hour" x1="100" y1="105" x2="100" y2="72"
+                stroke="rgba(255,255,255,0.9)" stroke-width="3" stroke-linecap="round"
+                filter="url(#glow-strong)"/>
+              <!-- Minute hand -->
+              <line class="wf-hand-minute" x1="100" y1="105" x2="100" y2="60"
+                stroke="#00f5ff" stroke-width="2" stroke-linecap="round"
+                filter="url(#glow-c)"/>
+              <!-- Second hand -->
+              <line class="wf-hand-second" x1="100" y1="114" x2="100" y2="58"
+                stroke="#ff00aa" stroke-width="1" stroke-linecap="round"
+                filter="url(#glow-p)"/>
+              <!-- Center jewel -->
+              <circle cx="100" cy="105" r="4" fill="#0a0a14" stroke="#00f5ff" stroke-width="1.2" filter="url(#glow-c)"/>
+              <circle cx="100" cy="105" r="2" fill="#00f5ff" filter="url(#glow-strong)"/>
+
+              <!-- ── TIME DIGITAL READOUT (top) ── -->
+              <text x="100" y="46" text-anchor="middle"
+                font-family="'Orbitron',monospace" font-size="11" font-weight="700"
+                fill="#f0f0f0" letter-spacing="2" filter="url(#glow-c)">09:41</text>
+              <!-- Blinking colon dot -->
+              <circle class="wf-dot-blink" cx="100" cy="40" r="1.2" fill="#00f5ff" filter="url(#glow-c)"/>
+
+              <!-- ── DATE STRIP (very top) ── -->
+              <text x="100" y="11" text-anchor="middle"
+                font-family="'Syne',sans-serif" font-size="5.5" font-weight="500"
+                fill="rgba(0,245,255,0.6)" letter-spacing="2">THU · MAY 28</text>
+
+              <!-- ── BOTTOM DATA ROW ── -->
+              <!-- Divider line -->
+              <line x1="30" y1="163" x2="170" y2="163" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>
+
+              <!-- BPM section (left) -->
+              <text x="44" y="174" text-anchor="middle"
+                font-family="'Orbitron',monospace" font-size="5" fill="rgba(0,245,255,0.5)" letter-spacing="1.5">BPM</text>
+              <text x="44" y="185" text-anchor="middle"
+                font-family="'Orbitron',monospace" font-size="11" font-weight="700"
+                fill="#00f5ff" filter="url(#glow-c)">72</text>
+              <!-- Mini ECG bars -->
+              <g transform="translate(26,191)">
+                <rect class="wf-bpm-bar" x="0"  y="0" width="3" height="6"  fill="#00f5ff" opacity="0.5" rx="1"/>
+                <rect class="wf-bpm-bar" x="5"  y="-3" width="3" height="9" fill="#00f5ff" opacity="0.7" rx="1"/>
+                <rect class="wf-bpm-bar" x="10" y="-5" width="3" height="11" fill="#00f5ff" opacity="0.9" rx="1"/>
+                <rect class="wf-bpm-bar" x="15" y="-2" width="3" height="8" fill="#00f5ff" opacity="0.6" rx="1"/>
+                <rect class="wf-bpm-bar" x="20" y="1"  width="3" height="5" fill="#00f5ff" opacity="0.45" rx="1"/>
+                <rect class="wf-bpm-bar" x="25" y="-3" width="3" height="9" fill="#00f5ff" opacity="0.65" rx="1"/>
+                <rect class="wf-bpm-bar" x="30" y="-4" width="3" height="10" fill="#00f5ff" opacity="0.8" rx="1"/>
+              </g>
+
+              <!-- Vertical divider -->
+              <line x1="100" y1="164" x2="100" y2="208" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>
+
+              <!-- SpO2 section (right) -->
+              <text x="152" y="174" text-anchor="middle"
+                font-family="'Orbitron',monospace" font-size="5" fill="rgba(138,43,226,0.6)" letter-spacing="1.5">SPO₂</text>
+              <text x="152" y="185" text-anchor="middle"
+                font-family="'Orbitron',monospace" font-size="11" font-weight="700"
+                fill="#8a2be2" filter="url(#glow-p)">98<tspan font-size="6" dy="2">%</tspan></text>
+              <!-- SpO2 mini arc -->
+              <circle cx="152" cy="199" r="8" fill="none" stroke="rgba(138,43,226,0.15)" stroke-width="3"/>
+              <circle cx="152" cy="199" r="8" fill="none" stroke="#8a2be2" stroke-width="3"
+                stroke-dasharray="44 6" stroke-linecap="round" stroke-dashoffset="12"
+                filter="url(#glow-p)"/>
+
+              <!-- ── STATUS ROW (very bottom) ── -->
+              <line x1="30" y1="210" x2="170" y2="210" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>
+              <!-- Battery bar -->
+              <rect x="30" y="212" width="35" height="4" rx="2" fill="rgba(255,255,255,0.06)"/>
+              <rect x="30" y="212" width="30" height="4" rx="2" fill="#ffd700" opacity="0.8"
+                filter="url(#glow-c)"/>
+              <text x="70" y="216" font-family="'Orbitron',monospace" font-size="4.5"
+                fill="rgba(255,215,0,0.7)">87%</text>
+              <!-- Steps -->
+              <text x="130" y="216" text-anchor="middle"
+                font-family="'Orbitron',monospace" font-size="4.5"
+                fill="rgba(255,255,255,0.3)" letter-spacing="0.5">8,241 STEPS</text>
+
+              <!-- ── BRAND MARK ── -->
+              <text x="100" y="157" text-anchor="middle"
+                font-family="'Orbitron',monospace" font-size="4.5" font-weight="600"
+                fill="rgba(255,255,255,0.12)" letter-spacing="3">CHRONOS X</text>
+
+            </svg>
+            <!-- ═══ END WATCH FACE SVG ═══ -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════
+       FEATURES SECTION
+  ═══════════════════════════════════════════════ -->
+  <section class="features" id="features" aria-labelledby="features-title">
+    <div class="features-inner">
+
+      <header class="section-header">
+        <p class="section-label">Core Technology</p>
+        <h2 class="section-title" id="features-title">Built to <em>Outperform</em></h2>
+        <p class="section-desc">
+          Every sensor, every pixel, every algorithm in Chronos X exists for one reason:
+          to give you an unfair advantage in life.
+        </p>
+      </header>
+
+      <div class="features-grid" role="list">
+
+        <!-- Card 1: Health Tracking -->
+        <article class="feature-card" role="listitem" tabindex="0">
+          <div class="feature-icon" aria-hidden="true">
+            <!-- Heart + ECG pulse SVG — Cyan -->
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <filter id="fi-glow-c"><feGaussianBlur stdDeviation="1.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              </defs>
+              <!-- Heart shape -->
+              <path d="M14 23.5S4 17 4 10.5A5.5 5.5 0 0 1 14 7.8 5.5 5.5 0 0 1 24 10.5C24 17 14 23.5 14 23.5Z"
+                fill="rgba(0,245,255,0.12)" stroke="#00f5ff" stroke-width="1.4" stroke-linejoin="round"
+                filter="url(#fi-glow-c)"/>
+              <!-- ECG line across heart -->
+              <polyline points="7,13 9.5,13 11,10 12.5,16 14,11 15.5,13 18,13 20,13"
+                fill="none" stroke="#00f5ff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"
+                filter="url(#fi-glow-c)"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">Health Nexus</h3>
+          <p class="feature-desc">
+            24/7 ECG, SpO₂, blood glucose estimation, and stress tracking powered by
+            a 32-sensor biometric array. Your personal lab, always on.
+          </p>
+          <span class="feature-stat">32 Biometric Sensors</span>
+        </article>
+
+        <!-- Card 2: AMOLED Display -->
+        <article class="feature-card" role="listitem" tabindex="0">
+          <div class="feature-icon" aria-hidden="true">
+            <!-- Diamond display SVG — Purple -->
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <filter id="fi-glow-p"><feGaussianBlur stdDeviation="1.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              </defs>
+              <!-- Outer rounded square (display bezel) -->
+              <rect x="3" y="3" width="22" height="22" rx="5" fill="rgba(138,43,226,0.12)"
+                stroke="#8a2be2" stroke-width="1.4" filter="url(#fi-glow-p)"/>
+              <!-- Inner screen area -->
+              <rect x="6.5" y="6.5" width="15" height="15" rx="2.5" fill="none"
+                stroke="rgba(138,43,226,0.4)" stroke-width="0.8"/>
+              <!-- Central 4-point star / diamond pixel -->
+              <path d="M14 8.5 L15.5 13 L20 14 L15.5 15 L14 19.5 L12.5 15 L8 14 L12.5 13 Z"
+                fill="rgba(138,43,226,0.25)" stroke="#8a2be2" stroke-width="1" stroke-linejoin="round"
+                filter="url(#fi-glow-p)"/>
+              <!-- Corner dots -->
+              <circle cx="8" cy="8" r="1" fill="#8a2be2" opacity="0.6"/>
+              <circle cx="20" cy="8" r="1" fill="#8a2be2" opacity="0.6"/>
+              <circle cx="8" cy="20" r="1" fill="#8a2be2" opacity="0.6"/>
+              <circle cx="20" cy="20" r="1" fill="#8a2be2" opacity="0.6"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">Quantum AMOLED</h3>
+          <p class="feature-desc">
+            2000-nit micro-AMOLED with 60Hz adaptive refresh and always-on mode.
+            Vivid in full noon sunlight, invisible in midnight darkness.
+          </p>
+          <span class="feature-stat">2000 nit · 60Hz</span>
+        </article>
+
+        <!-- Card 3: Battery -->
+        <article class="feature-card" role="listitem" tabindex="0">
+          <div class="feature-icon" aria-hidden="true">
+            <!-- Battery + bolt SVG — Pink -->
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <filter id="fi-glow-k"><feGaussianBlur stdDeviation="1.3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              </defs>
+              <!-- Battery body -->
+              <rect x="3" y="8.5" width="19" height="11" rx="3"
+                fill="rgba(255,0,170,0.1)" stroke="#ff00aa" stroke-width="1.4"
+                filter="url(#fi-glow-k)"/>
+              <!-- Battery terminal nub -->
+              <rect x="22" y="11.5" width="3" height="5" rx="1.5" fill="#ff00aa" opacity="0.7"/>
+              <!-- Battery fill (85%) -->
+              <rect x="4.5" y="10" width="14" height="8" rx="2"
+                fill="rgba(255,0,170,0.3)" stroke="none"/>
+              <!-- Lightning bolt centred -->
+              <path d="M15 7.5 L11 14.5 H14 L13 20.5 L18 13.5 H15 Z"
+                fill="#ff00aa" filter="url(#fi-glow-k)"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">Endurance Core</h3>
+          <p class="feature-desc">
+            A graphene-composite battery cell with AI-managed power distribution.
+            10 full days without charging. 45-minute rapid charge to 80%.
+          </p>
+          <span class="feature-stat">10-Day Battery</span>
+        </article>
+
+        <!-- Card 4: Titanium -->
+        <article class="feature-card" role="listitem" tabindex="0">
+          <div class="feature-icon" aria-hidden="true">
+            <!-- Shield SVG — Gold -->
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <filter id="fi-glow-g"><feGaussianBlur stdDeviation="1.3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              </defs>
+              <!-- Shield outer -->
+              <path d="M14 3 L23 6.5 L23 14.5 C23 19.5 18.5 23.5 14 25 C9.5 23.5 5 19.5 5 14.5 L5 6.5 Z"
+                fill="rgba(255,215,0,0.1)" stroke="#ffd700" stroke-width="1.4" stroke-linejoin="round"
+                filter="url(#fi-glow-g)"/>
+              <!-- Inner shield detail lines -->
+              <path d="M14 6 L20 8.5 L20 14.5 C20 17.8 17.2 20.5 14 22 C10.8 20.5 8 17.8 8 14.5 L8 8.5 Z"
+                fill="none" stroke="rgba(255,215,0,0.3)" stroke-width="0.7"/>
+              <!-- Centre star/check mark -->
+              <polyline points="10.5,14 13,16.5 17.5,11"
+                fill="none" stroke="#ffd700" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"
+                filter="url(#fi-glow-g)"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">Aerospace Shell</h3>
+          <p class="feature-desc">
+            Grade-5 titanium chassis with sapphire crystal lens and DLC coating.
+            Rated MIL-STD-810H. Built for Mars, tested on Earth.
+          </p>
+          <span class="feature-stat">MIL-STD-810H Rated</span>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════
+       TECH SPECS SECTION
+  ═══════════════════════════════════════════════ -->
+  <section class="specs" id="specs" aria-labelledby="specs-title">
+    <div class="specs-inner">
+
+      <!-- Left: Visual -->
+      <div class="specs-visual" aria-hidden="true">
+        <div class="specs-watch-wrap">
+          <div class="specs-watch-glow"></div>
+          <div class="specs-watch-frame">
+             <div class="watch-screen">
+            <div class="scan-line"></div>
+
+            <!-- ═══ FUTURISTIC WATCH FACE SVG ═══ -->
+            <svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg"
+                 style="width:100%;height:100%;display:block;overflow:visible;"
+                 aria-hidden="true">
+              <defs>
+                <!-- Cyan glow filter -->
+                <filter id="glow-c" x="-40%" y="-40%" width="180%" height="180%">
+                  <feGaussianBlur stdDeviation="2.5" result="blur"/>
+                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+                <!-- Purple glow filter -->
+                <filter id="glow-p" x="-40%" y="-40%" width="180%" height="180%">
+                  <feGaussianBlur stdDeviation="2" result="blur"/>
+                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+                <!-- Strong glow for hands -->
+                <filter id="glow-strong" x="-80%" y="-80%" width="260%" height="260%">
+                  <feGaussianBlur stdDeviation="3.5" result="blur"/>
+                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+                <!-- Radar gradient -->
+                <radialGradient id="radar-grad" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#00f5ff" stop-opacity="0.18"/>
+                  <stop offset="100%" stop-color="#00f5ff" stop-opacity="0"/>
+                </radialGradient>
+                <!-- Radar sweep gradient -->
+                <linearGradient id="sweep-grad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#00f5ff" stop-opacity="0.5"/>
+                  <stop offset="100%" stop-color="#00f5ff" stop-opacity="0"/>
+                </linearGradient>
+                <!-- Arc gradients -->
+                <linearGradient id="arc-grad-1" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#00f5ff"/>
+                  <stop offset="100%" stop-color="#8a2be2"/>
+                </linearGradient>
+                <linearGradient id="arc-grad-2" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#8a2be2"/>
+                  <stop offset="100%" stop-color="#ff00aa"/>
+                </linearGradient>
+                <linearGradient id="arc-grad-3" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#ffd700"/>
+                  <stop offset="100%" stop-color="#ff8c00"/>
+                </linearGradient>
+              </defs>
+
+              <!-- ── BG: subtle radial grid ── -->
+              <circle cx="100" cy="105" r="92" fill="none" stroke="rgba(0,245,255,0.04)" stroke-width="0.5"/>
+              <circle cx="100" cy="105" r="72" fill="none" stroke="rgba(0,245,255,0.04)" stroke-width="0.5"/>
+              <circle cx="100" cy="105" r="52" fill="none" stroke="rgba(138,43,226,0.05)" stroke-width="0.5"/>
+
+              <!-- Cross hairs -->
+              <line x1="100" y1="13" x2="100" y2="197" stroke="rgba(0,245,255,0.04)" stroke-width="0.5"/>
+              <line x1="8"   y1="105" x2="192" y2="105" stroke="rgba(0,245,255,0.04)" stroke-width="0.5"/>
+
+              <!-- ── TICK MARKS (hour positions) ── -->
+              <g stroke="rgba(0,245,255,0.35)" stroke-width="1.2" filter="url(#glow-c)">
+                <!-- 12 evenly spaced ticks at r=88 -->
+                <line x1="100" y1="17" x2="100" y2="25"/>
+                <line x1="144" y1="28.5" x2="140" y2="35.4" transform="rotate(30,100,105)"/>
+                <line x1="100" y1="17" x2="100" y2="25" transform="rotate(60,100,105)"/>
+                <line x1="100" y1="17" x2="100" y2="25" transform="rotate(90,100,105)"/>
+                <line x1="100" y1="17" x2="100" y2="25" transform="rotate(120,100,105)"/>
+                <line x1="100" y1="17" x2="100" y2="25" transform="rotate(150,100,105)"/>
+                <line x1="100" y1="17" x2="100" y2="25" transform="rotate(180,100,105)"/>
+                <line x1="100" y1="17" x2="100" y2="25" transform="rotate(210,100,105)"/>
+                <line x1="100" y1="17" x2="100" y2="25" transform="rotate(240,100,105)"/>
+                <line x1="100" y1="17" x2="100" y2="25" transform="rotate(270,100,105)"/>
+                <line x1="100" y1="17" x2="100" y2="25" transform="rotate(300,100,105)"/>
+                <line x1="100" y1="17" x2="100" y2="25" transform="rotate(330,100,105)"/>
+              </g>
+              <!-- Minor ticks -->
+              <g stroke="rgba(0,245,255,0.12)" stroke-width="0.6">
+                <line x1="100" y1="17" x2="100" y2="21" transform="rotate(6,100,105)"/>
+                <line x1="100" y1="17" x2="100" y2="21" transform="rotate(12,100,105)"/>
+                <line x1="100" y1="17" x2="100" y2="21" transform="rotate(18,100,105)"/>
+                <line x1="100" y1="17" x2="100" y2="21" transform="rotate(24,100,105)"/>
+                <line x1="100" y1="17" x2="100" y2="21" transform="rotate(36,100,105)"/>
+                <line x1="100" y1="17" x2="100" y2="21" transform="rotate(42,100,105)"/>
+                <line x1="100" y1="17" x2="100" y2="21" transform="rotate(48,100,105)"/>
+                <line x1="100" y1="17" x2="100" y2="21" transform="rotate(54,100,105)"/>
+              </g>
+
+              <!-- ── OUTER FITNESS ARCS (r=82, stroke=6) ── -->
+              <!-- Arc track backgrounds -->
+              <circle cx="100" cy="105" r="82" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="5.5" stroke-dasharray="515" stroke-linecap="round"/>
+              <circle cx="100" cy="105" r="73" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="4.5" stroke-dasharray="459" stroke-linecap="round"/>
+              <circle cx="100" cy="105" r="64" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="4" stroke-dasharray="402" stroke-linecap="round"/>
+
+              <!-- Arc 1: Activity (cyan-purple) – 78% -->
+              <circle class="wf-arc-outer" cx="100" cy="105" r="82"
+                fill="none" stroke="url(#arc-grad-1)" stroke-width="5.5"
+                stroke-dasharray="401 114" stroke-linecap="round"
+                stroke-dashoffset="129" filter="url(#glow-c)"
+                style="transform-origin:100px 105px;"/>
+
+              <!-- Arc 2: Stand (purple-pink) – 60% -->
+              <circle cx="100" cy="105" r="73"
+                fill="none" stroke="url(#arc-grad-2)" stroke-width="4.5"
+                stroke-dasharray="275 184" stroke-linecap="round"
+                stroke-dashoffset="115" filter="url(#glow-p)"/>
+
+              <!-- Arc 3: Exercise (gold) – 85% -->
+              <circle cx="100" cy="105" r="64"
+                fill="none" stroke="url(#arc-grad-3)" stroke-width="4"
+                stroke-dasharray="341 61" stroke-linecap="round"
+                stroke-dashoffset="101" filter="url(#glow-c)"/>
+
+              <!-- ── RADAR ZONE (inner circle) ── -->
+              <circle cx="100" cy="105" r="50" fill="url(#radar-grad)" stroke="rgba(0,245,255,0.08)" stroke-width="0.5"/>
+              <!-- Radar grid rings -->
+              <circle cx="100" cy="105" r="33" fill="none" stroke="rgba(0,245,255,0.07)" stroke-width="0.5" stroke-dasharray="3 4"/>
+              <circle cx="100" cy="105" r="17" fill="none" stroke="rgba(0,245,255,0.07)" stroke-width="0.5" stroke-dasharray="3 4"/>
+              <!-- Radar sweep sector -->
+              <g class="wf-radar-line">
+                <path d="M100,105 L100,55 A50,50 0 0,1 148,129 Z" fill="url(#sweep-grad)" opacity="0.35"/>
+                <line x1="100" y1="105" x2="100" y2="55" stroke="#00f5ff" stroke-width="0.8" opacity="0.7" filter="url(#glow-c)"/>
+              </g>
+              <!-- Radar blips -->
+              <circle cx="115" cy="82" r="2.5" fill="#00f5ff" opacity="0.9" filter="url(#glow-c)">
+                <animate attributeName="opacity" values="0.9;0.2;0.9" dur="2.1s" repeatCount="indefinite"/>
+              </circle>
+              <circle cx="87" cy="120" r="1.8" fill="#8a2be2" opacity="0.8" filter="url(#glow-p)">
+                <animate attributeName="opacity" values="0.8;0.1;0.8" dur="1.7s" repeatCount="indefinite"/>
+              </circle>
+              <circle cx="118" cy="115" r="1.5" fill="#00f5ff" opacity="0.6" filter="url(#glow-c)">
+                <animate attributeName="opacity" values="0.6;0.05;0.6" dur="2.9s" repeatCount="indefinite"/>
+              </circle>
+
+              <!-- ── CLOCK HANDS ── -->
+              <!-- Hour hand -->
+              <line class="wf-hand-hour" x1="100" y1="105" x2="100" y2="72"
+                stroke="rgba(255,255,255,0.9)" stroke-width="3" stroke-linecap="round"
+                filter="url(#glow-strong)"/>
+              <!-- Minute hand -->
+              <line class="wf-hand-minute" x1="100" y1="105" x2="100" y2="60"
+                stroke="#00f5ff" stroke-width="2" stroke-linecap="round"
+                filter="url(#glow-c)"/>
+              <!-- Second hand -->
+              <line class="wf-hand-second" x1="100" y1="114" x2="100" y2="58"
+                stroke="#ff00aa" stroke-width="1" stroke-linecap="round"
+                filter="url(#glow-p)"/>
+              <!-- Center jewel -->
+              <circle cx="100" cy="105" r="4" fill="#0a0a14" stroke="#00f5ff" stroke-width="1.2" filter="url(#glow-c)"/>
+              <circle cx="100" cy="105" r="2" fill="#00f5ff" filter="url(#glow-strong)"/>
+
+              <!-- ── TIME DIGITAL READOUT (top) ── -->
+              <text x="100" y="46" text-anchor="middle"
+                font-family="'Orbitron',monospace" font-size="11" font-weight="700"
+                fill="#f0f0f0" letter-spacing="2" filter="url(#glow-c)">09:41</text>
+              <!-- Blinking colon dot -->
+              <circle class="wf-dot-blink" cx="100" cy="40" r="1.2" fill="#00f5ff" filter="url(#glow-c)"/>
+
+              <!-- ── DATE STRIP (very top) ── -->
+              <text x="100" y="11" text-anchor="middle"
+                font-family="'Syne',sans-serif" font-size="5.5" font-weight="500"
+                fill="rgba(0,245,255,0.6)" letter-spacing="2">THU · MAY 28</text>
+
+              <!-- ── BOTTOM DATA ROW ── -->
+              <!-- Divider line -->
+              <line x1="30" y1="163" x2="170" y2="163" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>
+
+              <!-- BPM section (left) -->
+              <text x="44" y="174" text-anchor="middle"
+                font-family="'Orbitron',monospace" font-size="5" fill="rgba(0,245,255,0.5)" letter-spacing="1.5">BPM</text>
+              <text x="44" y="185" text-anchor="middle"
+                font-family="'Orbitron',monospace" font-size="11" font-weight="700"
+                fill="#00f5ff" filter="url(#glow-c)">72</text>
+              <!-- Mini ECG bars -->
+              <g transform="translate(26,191)">
+                <rect class="wf-bpm-bar" x="0"  y="0" width="3" height="6"  fill="#00f5ff" opacity="0.5" rx="1"/>
+                <rect class="wf-bpm-bar" x="5"  y="-3" width="3" height="9" fill="#00f5ff" opacity="0.7" rx="1"/>
+                <rect class="wf-bpm-bar" x="10" y="-5" width="3" height="11" fill="#00f5ff" opacity="0.9" rx="1"/>
+                <rect class="wf-bpm-bar" x="15" y="-2" width="3" height="8" fill="#00f5ff" opacity="0.6" rx="1"/>
+                <rect class="wf-bpm-bar" x="20" y="1"  width="3" height="5" fill="#00f5ff" opacity="0.45" rx="1"/>
+                <rect class="wf-bpm-bar" x="25" y="-3" width="3" height="9" fill="#00f5ff" opacity="0.65" rx="1"/>
+                <rect class="wf-bpm-bar" x="30" y="-4" width="3" height="10" fill="#00f5ff" opacity="0.8" rx="1"/>
+              </g>
+
+              <!-- Vertical divider -->
+              <line x1="100" y1="164" x2="100" y2="208" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>
+
+              <!-- SpO2 section (right) -->
+              <text x="152" y="174" text-anchor="middle"
+                font-family="'Orbitron',monospace" font-size="5" fill="rgba(138,43,226,0.6)" letter-spacing="1.5">SPO₂</text>
+              <text x="152" y="185" text-anchor="middle"
+                font-family="'Orbitron',monospace" font-size="11" font-weight="700"
+                fill="#8a2be2" filter="url(#glow-p)">98<tspan font-size="6" dy="2">%</tspan></text>
+              <!-- SpO2 mini arc -->
+              <circle cx="152" cy="199" r="8" fill="none" stroke="rgba(138,43,226,0.15)" stroke-width="3"/>
+              <circle cx="152" cy="199" r="8" fill="none" stroke="#8a2be2" stroke-width="3"
+                stroke-dasharray="44 6" stroke-linecap="round" stroke-dashoffset="12"
+                filter="url(#glow-p)"/>
+
+              <!-- ── STATUS ROW (very bottom) ── -->
+              <line x1="30" y1="210" x2="170" y2="210" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>
+              <!-- Battery bar -->
+              <rect x="30" y="212" width="35" height="4" rx="2" fill="rgba(255,255,255,0.06)"/>
+              <rect x="30" y="212" width="30" height="4" rx="2" fill="#ffd700" opacity="0.8"
+                filter="url(#glow-c)"/>
+              <text x="70" y="216" font-family="'Orbitron',monospace" font-size="4.5"
+                fill="rgba(255,215,0,0.7)">87%</text>
+              <!-- Steps -->
+              <text x="130" y="216" text-anchor="middle"
+                font-family="'Orbitron',monospace" font-size="4.5"
+                fill="rgba(255,255,255,0.3)" letter-spacing="0.5">8,241 STEPS</text>
+
+              <!-- ── BRAND MARK ── -->
+              <text x="100" y="157" text-anchor="middle"
+                font-family="'Orbitron',monospace" font-size="4.5" font-weight="600"
+                fill="rgba(255,255,255,0.12)" letter-spacing="3">CHRONOS X</text>
+
+            </svg>
+            <!-- ═══ END WATCH FACE SVG ═══ -->
+          </div>
+            <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="40" cy="40" r="35" stroke="rgba(0,245,255,0.15)" stroke-width="1"/>
+              <circle cx="40" cy="40" r="25" stroke="rgba(138,43,226,0.2)" stroke-width="1"/>
+              <text x="40" y="36" text-anchor="middle" fill="rgba(0,245,255,0.8)" font-family="'Orbitron',monospace" font-size="10" font-weight="700">09:41</text>
+              <text x="40" y="50" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="'Syne',sans-serif" font-size="6">CHRONOS X</text>
+            </svg>
+          </div>
+        </div>
+        <p class="specs-label">Chronos X · Gen 4<br>Titanium Edition</p>
+      </div>
+
+      <!-- Right: Spec list -->
+      <div>
+        <header class="section-header" style="margin-bottom: 2.5rem;">
+          <p class="section-label">Under the Hood</p>
+          <h2 class="section-title" id="specs-title">Spec <em>Sheet</em></h2>
+          <p class="section-desc">
+            Raw numbers don't tell the whole story — but they're a good start.
+          </p>
+        </header>
+
+        <dl class="specs-list">
+
+          <div class="spec-row">
+            <dt class="spec-key">Processor</dt>
+            <dd class="spec-value-wrap">
+              <span class="spec-value">Helios X4 · 4nm · 6-core AI</span>
+              <div class="spec-bar-track"><div class="spec-bar-fill" style="--bar-width: 95%;"></div></div>
+            </dd>
+          </div>
+
+          <div class="spec-row">
+            <dt class="spec-key">Display</dt>
+            <dd class="spec-value-wrap">
+              <span class="spec-value">1.9″ Micro-AMOLED · 454 PPI</span>
+              <div class="spec-bar-track"><div class="spec-bar-fill" style="--bar-width: 90%;"></div></div>
+            </dd>
+          </div>
+
+          <div class="spec-row">
+            <dt class="spec-key">RAM</dt>
+            <dd class="spec-value-wrap">
+              <span class="spec-value">4 GB LPDDR5</span>
+              <div class="spec-bar-track"><div class="spec-bar-fill" style="--bar-width: 80%;"></div></div>
+            </dd>
+          </div>
+
+          <div class="spec-row">
+            <dt class="spec-key">Storage</dt>
+            <dd class="spec-value-wrap">
+              <span class="spec-value">64 GB UFS 3.1</span>
+              <div class="spec-bar-track"><div class="spec-bar-fill" style="--bar-width: 75%;"></div></div>
+            </dd>
+          </div>
+
+          <div class="spec-row">
+            <dt class="spec-key">Battery</dt>
+            <dd class="spec-value-wrap">
+              <span class="spec-value">480 mAh Graphene · 10-Day</span>
+              <div class="spec-bar-track"><div class="spec-bar-fill" style="--bar-width: 100%;"></div></div>
+            </dd>
+          </div>
+
+          <div class="spec-row">
+            <dt class="spec-key">Connectivity</dt>
+            <dd class="spec-value-wrap">
+              <span class="spec-value">LTE · Wi-Fi 6E · BT 5.3 · NFC · UWB</span>
+              <div class="spec-bar-track"><div class="spec-bar-fill" style="--bar-width: 98%;"></div></div>
+            </dd>
+          </div>
+
+          <div class="spec-row">
+            <dt class="spec-key">Sensors</dt>
+            <dd class="spec-value-wrap">
+              <span class="spec-value">ECG · SpO₂ · Glucose · Gyro · GPS · Baro</span>
+              <div class="spec-bar-track"><div class="spec-bar-fill" style="--bar-width: 92%;"></div></div>
+            </dd>
+          </div>
+
+          <div class="spec-row">
+            <dt class="spec-key">Water Rating</dt>
+            <dd class="spec-value-wrap">
+              <span class="spec-value">50m · ISO 22810 · 5ATM</span>
+              <div class="spec-bar-track"><div class="spec-bar-fill" style="--bar-width: 85%;"></div></div>
+            </dd>
+          </div>
+
+          <div class="spec-row">
+            <dt class="spec-key">Material</dt>
+            <dd class="spec-value-wrap">
+              <span class="spec-value">Grade-5 Titanium · Sapphire Crystal · DLC</span>
+              <div class="spec-bar-track"><div class="spec-bar-fill" style="--bar-width: 100%;"></div></div>
+            </dd>
+          </div>
+
+        </dl>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════
+       FOOTER CTA
+  ═══════════════════════════════════════════════ -->
+  <section class="footer-cta" id="order" aria-labelledby="cta-title">
+    <div class="footer-cta-inner">
+      <p class="section-label">Limited Edition Drop</p>
+      <h2 class="section-title" id="cta-title">Own the <em>Future</em></h2>
+      <p class="section-desc">
+        Chronos X ships in three colorways — Void Black, Glacier White, and Phantom Purple.
+        First batch limited to 10,000 units worldwide.
+      </p>
+
+      <div class="footer-cta-actions">
+        <span class="price-tag">From <span>$499</span></span>
+        <a href="#" class="btn-primary">
+          Pre-Order Now
+          <span class="btn-primary-icon" aria-hidden="true">→</span>
+        </a>
+        <a href="#" class="btn-ghost">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════════ -->
+  <footer role="contentinfo">
+    <div class="footer-brand">CHRONOS<span>X</span></div>
+
+    <ul class="footer-links">
+      <li><a href="#">Privacy</a></li>
+      <li><a href="#">Terms</a></li>
+      <li><a href="#">Support</a></li>
+      <li><a href="#">Press</a></li>
+    </ul>
+
+    <p class="footer-copy">© 2026 Chronos X Technologies. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
